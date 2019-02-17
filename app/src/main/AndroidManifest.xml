@@ -16,7 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.home.HomeActivity">
+        <activity android:name=".ui.paymentList.HomeActivity">
+        </activity>
+        <activity
+                android:name=".ui.paymentList.PaymentListActivity"
+                android:label="@string/title_activity_payment_list"
+                android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 
