@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
+        card_view:cardUseCompatPadding="true">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:orientation="vertical">
+
+        <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:orientation="horizontal"
+                tools:ignore="MissingConstraints">
+
+            <LinearLayout
+                    android:layout_width="190dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="20dp"
+                    android:orientation="horizontal"
+                    tools:ignore="MissingConstraints">
+                <TextView
+                        android:id="@+id/typePayment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:textColor="@color/colorTextListGrid"
+                        android:text="Pagamento"/>
+            </LinearLayout>
+
+            <TextView
+                    android:id="@+id/datePayment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="12/05/2018"
+                    android:gravity="end"
+                    android:textColor="@color/colorTextListGrid"
+                    android:textSize="12sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="35dp"
+                android:orientation="horizontal"
+                tools:ignore="MissingConstraints">
+
+            <LinearLayout
+                    android:layout_width="180dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="20dp"
+                    android:orientation="horizontal"
+                    tools:ignore="MissingConstraints">
+                <TextView
+                        android:id="@+id/whatPayment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:textColor="@color/colorBlack"
+                        android:text="Conta de luz"/>
+            </LinearLayout>
+
+            <TextView
+                    android:id="@+id/valuePayment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="$1.000,00"
+                    android:gravity="end"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView> 

@@ -31,31 +31,32 @@
                     android:layout_margin="10dp"
                     tools:ignore="MissingConstraints">
 
-            <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="30dp"
-                    android:orientation="horizontal"
-                    tools:ignore="MissingConstraints">
-
                 <LinearLayout
-                        android:layout_width="330dp"
-                        android:layout_height="30dp"
+                        android:layout_width="fill_parent"
+                        android:layout_height="35dp"
                         android:orientation="horizontal"
                         tools:ignore="MissingConstraints">
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="25dp"
-                        android:textColor="@color/colorWhite"
-                        android:text="José da Silva Teste"/>
-                </LinearLayout>
 
-                <ImageView
-                        android:id="@+id/logout"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:src="@drawable/logout"/>
-            </LinearLayout>
+                    <LinearLayout
+                            android:layout_width="330dp"
+                            android:layout_height="35dp"
+                            android:orientation="horizontal"
+                            tools:ignore="MissingConstraints">
+                        <TextView
+                                android:id="@id/txt_saldo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="25dp"
+                                android:textColor="@color/colorWhite"
+                                android:text="José da Silva Teste"/>
+                    </LinearLayout>
+
+                    <ImageView
+                            android:id="@+id/logout"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:src="@drawable/logout"/>
+                </LinearLayout>
 
                 <TextView
                         android:layout_width="wrap_content"
@@ -66,6 +67,7 @@
                         android:text="Conta"/>
 
                 <TextView
+                        android:id="@+id/txt_conta"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="25dp"
@@ -81,6 +83,7 @@
                         android:text="Saldo"/>
 
                 <TextView
+                        android:id="@+id/txt_saldo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="25dp"
