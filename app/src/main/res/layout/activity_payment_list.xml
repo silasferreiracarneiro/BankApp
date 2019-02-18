@@ -43,7 +43,7 @@
                             android:orientation="horizontal"
                             tools:ignore="MissingConstraints">
                         <TextView
-                                android:id="@id/txt_saldo"
+                                android:id="@+id/txt_name_user"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textSize="25dp"

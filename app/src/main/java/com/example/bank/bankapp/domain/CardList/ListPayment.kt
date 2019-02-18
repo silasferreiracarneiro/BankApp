@@ -6,5 +6,5 @@ class ListPayment(
     var typePayment: String = "",
     var date: Date? = Date(),
     var typeAccount: String = "",
-    var valuePayment: Float = 0f
+    var valuePayment: Double = 0.0
 )

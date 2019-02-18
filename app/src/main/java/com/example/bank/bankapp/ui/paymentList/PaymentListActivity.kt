@@ -3,29 +3,51 @@ package com.example.bank.bankapp.ui.paymentList
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.StaggeredGridLayoutManager
+import android.widget.Toast
 import com.example.bank.bankapp.R
 import com.example.bank.bankapp.domain.CardList.ListPayment
 import com.example.bank.bankapp.domain.CardList.PaymentAdapter
+import com.example.bank.bankapp.domain.login.Usuario
+import kotlinx.android.synthetic.main.activity_payment_list.*
 import kotlinx.android.synthetic.main.content_payment_list.*
 
 class PaymentListActivity : AppCompatActivity(), PaymentListContract.View {
 
+    lateinit var paymentListPayment: PaymentListPresenter
     lateinit var paymentAdapter: PaymentAdapter
-
-    var array = arrayOf(
-        ListPayment("1"),
-        ListPayment("2"),
-        ListPayment("3"),
-        ListPayment("4"),
-        ListPayment("5")
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment_list)
 
-        this.paymentAdapter = PaymentAdapter(this, array)
+        this.paymentListPayment = PaymentListPresenter(this)
+
+        var user = intent.extras.getSerializable("USUARIO") as? Usuario
+        setInformationUser(user!!)
+    }
+
+    private fun setInformationUser(usuario: Usuario){
+
+        if(usuario != null){
+            txt_name_user.text = usuario.name
+            txt_conta.text = "${usuario.agency}/${usuario.bankAccount}"
+            txt_saldo.text = "${usuario.bankAccount}"
+            this.getListPayment(usuario.userId)
+        }
+    }
+
+    override fun getListPayment(idUser: Int) {
+        this.paymentListPayment.getListPayment(idUser)
+    }
+
+    override fun setMessageUser(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun loadCardListPayment(list: ArrayList<ListPayment>) {
+        this.paymentAdapter = PaymentAdapter(this, list)
         recycler_view.layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
         recycler_view.adapter = this.paymentAdapter
     }
+
 }

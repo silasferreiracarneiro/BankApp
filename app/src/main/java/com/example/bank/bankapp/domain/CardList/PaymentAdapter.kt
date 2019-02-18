@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import com.example.bank.bankapp.R
 import com.example.bank.bankapp.infra.formatutils.DateFormat.Companion.toDateFormat
 
-class PaymentAdapter(val context: Context, var payments: Array<ListPayment>) : RecyclerView.Adapter<PaymentHolder>() {
+class PaymentAdapter(val context: Context, var payments: ArrayList<ListPayment>) : RecyclerView.Adapter<PaymentHolder>() {
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): PaymentHolder {
         var view = LayoutInflater.from(this.context).inflate(R.layout.list_item_payment, p0, false)

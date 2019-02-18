@@ -4,6 +4,7 @@ import android.os.StrictMode
 import com.example.bank.bankapp.data.RetrofitClient
 import com.example.bank.bankapp.data.dto.LoginDto
 import com.example.bank.bankapp.data.repository.LoginRepository
+import com.example.bank.bankapp.domain.login.Usuario
 import java.util.regex.Pattern
 
 class LoginPresenter(private val view: LoginContract.View) : LoginContract.Presenter {
@@ -18,7 +19,17 @@ class LoginPresenter(private val view: LoginContract.View) : LoginContract.Prese
 
     override fun validatePassword(password: String?) {
 
-        if(password.isNullOrEmpty() || password.isNullOrBlank()){
+        var usuario = Usuario(
+            1,
+            "Jose da Silva Teste",
+            "2050",
+            "012314564",
+            3.3445
+        )
+
+        view.getActivityPayment(usuario)
+
+        /*if(password.isNullOrEmpty() || password.isNullOrBlank()){
             view.setMessageUser(messagePassword)
             return
         }
@@ -37,14 +48,14 @@ class LoginPresenter(private val view: LoginContract.View) : LoginContract.Prese
         {
             view.getLogin()
             return
-        }
+        }*/
     }
 
     override fun sendLogin(password: String, username: String) {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
 
-        var user = LoginDto("test_user", "Test@1")
+        var user = LoginDto(password, username)
 
         var call = provider.login(user)
         var response = call.execute()
@@ -54,8 +65,10 @@ class LoginPresenter(private val view: LoginContract.View) : LoginContract.Prese
 
             if(body?.error != null){
                 this.view.setMessageUser(body?.error.message)
+                return
             }else{
-                this.view.getActivityPayment()
+                this.view.getActivityPayment(body?.userAccount?.toDomain()!!)
+                return
             }
         }
     }

@@ -1,5 +1,7 @@
 package com.example.bank.bankapp.ui.login
 
+import com.example.bank.bankapp.domain.login.Usuario
+
 interface LoginContract {
 
     interface Presenter{
@@ -10,7 +12,7 @@ interface LoginContract {
     interface View{
         fun validateUSer(password : String?)
         fun setMessageUser(message: String)
-        fun getActivityPayment()
+        fun getActivityPayment(usuario: Usuario)
         fun getLogin()
     }
 }

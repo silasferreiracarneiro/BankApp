@@ -10,5 +10,5 @@ import retrofit2.http.POST
 interface LoginRepository {
 
     @POST("/api/login")
-    fun login(@Body user: LoginDto) : Call<UsuarioResponseDTO<UsuarioDto>>
+    fun login(@Body user: LoginDto) : Call<UsuarioResponseDTO>
 }
