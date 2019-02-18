@@ -28,7 +28,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
     fun login(view: View){
         var textPassword = input_password.text?.toString()
-        this.validateUSer("Test@1")
+        this.validateUSer(textPassword)
     }
 
     override fun validateUSer(password: String?) {
@@ -54,7 +54,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         var username = input_username.text?.toString()
         var textPassword = input_password.text?.toString()
 
-        this.loginPresenter.sendLogin("test_user"!!, "Test@1"!!)
+        this.loginPresenter.sendLogin(username!!, textPassword!!)
     }
 
     override fun getContext() : Context {

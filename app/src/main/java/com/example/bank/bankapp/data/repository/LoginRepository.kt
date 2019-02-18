@@ -9,6 +9,7 @@ import com.example.bank.bankapp.data.Sqlite.UserTable
 import com.example.bank.bankapp.infra.RetrofitClient
 import com.example.bank.bankapp.data.dto.UsuarioResponseDTO
 import com.example.bank.bankapp.data.dto.LoginDto
+import com.example.bank.bankapp.domain.login.Login
 import com.example.bank.bankapp.infra.DbSettings
 import org.jetbrains.anko.db.MapRowParser
 import org.jetbrains.anko.db.select
@@ -67,8 +68,9 @@ class LoginRepository(ctx: Context) {
 
         }catch (e : Exception){
             e.printStackTrace()
+            return LoginDto("","")
         }
-        return null!!
+        return LoginDto("","")
     }
 
     private fun deleteAllUserDb(){

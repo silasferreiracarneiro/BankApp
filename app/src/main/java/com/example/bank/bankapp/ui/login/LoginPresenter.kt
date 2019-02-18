@@ -66,12 +66,6 @@ class LoginPresenter(private val view: LoginContract.View) : LoginContract.Prese
 
     override fun getUserLocal() {
         var dto = this.repository.getUser()
-
-        if(dto != null){
-            view.setUserExiste(dto.toDomain())
-        }
-        else{
-            return
-        }
-    }
+        view.setUserExiste(dto.toDomain())
+}
 }
