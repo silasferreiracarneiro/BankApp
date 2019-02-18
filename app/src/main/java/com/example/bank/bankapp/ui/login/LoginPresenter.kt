@@ -11,7 +11,7 @@ class LoginPresenter(private val view: LoginContract.View) : LoginContract.Prese
     var messagePassword: String = "Usuário ou senha inválidos"
 
     init {
-        repository = LoginRepository()
+        repository = LoginRepository(view.getContext()!!)
     }
 
     override fun validatePassword(password: String?) {
@@ -56,5 +56,10 @@ class LoginPresenter(private val view: LoginContract.View) : LoginContract.Prese
                 return
             }
         }
+    }
+
+    override fun inserUser(username: String, password: String) {
+        var user = LoginDto(password, username)
+        this.repository.insertUser(user)
     }
 }

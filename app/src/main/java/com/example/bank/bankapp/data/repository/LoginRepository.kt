@@ -38,8 +38,9 @@ class LoginRepository(ctx: Context) {
 
     fun insertUser(usuario: LoginDto){
         try {
-            val values = ContentValues()
+            deleteAllUserDb()
 
+            val values = ContentValues()
             values.put(UserTable.LOGIN, usuario.user)
             values.put(UserTable.SENHA, usuario.password)
 
@@ -47,5 +48,9 @@ class LoginRepository(ctx: Context) {
         }catch (ex : Exception){
             ex.printStackTrace()
         }
+    }
+
+    private fun deleteAllUserDb(){
+        db?.delete(UserTable.NAME_TABLE_USUARIO, null, null)
     }
 }

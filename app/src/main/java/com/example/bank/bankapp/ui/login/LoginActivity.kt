@@ -1,5 +1,6 @@
 package com.example.bank.bankapp.ui.login
 
+import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -36,6 +37,11 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     }
 
     override fun getActivityPayment(usuario: Usuario) {
+        
+        var username = input_username.text?.toString()
+        var textPassword = input_password.text?.toString()
+        this.loginPresenter.inserUser(username!!, textPassword!!)
+
         var intent = Intent(this, PaymentListActivity::class.java)
         intent.putExtra("USUARIO", usuario)
         startActivity(intent)
@@ -46,5 +52,9 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         var textPassword = input_password.text?.toString()
 
         this.loginPresenter.sendLogin("test_user"!!, "Test@1"!!)
+    }
+
+    override fun getContext() : Context {
+        return baseContext
     }
 }
