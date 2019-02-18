@@ -1,4 +1,4 @@
-package com.example.bank.bankapp.data
+package com.example.bank.bankapp.infra
 
 import com.example.bank.bankapp.infra.formatutils.DateTypeDeserializer
 import com.google.gson.GsonBuilder

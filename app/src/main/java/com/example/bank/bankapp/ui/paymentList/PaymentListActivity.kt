@@ -10,12 +10,10 @@ import com.example.bank.bankapp.R
 import com.example.bank.bankapp.domain.CardList.ListPayment
 import com.example.bank.bankapp.domain.CardList.PaymentAdapter
 import com.example.bank.bankapp.domain.login.Usuario
-import com.example.bank.bankapp.infra.formatutils.DateFormat
 import com.example.bank.bankapp.infra.formatutils.MoneyFormat.Companion.currencyFormatMoney
 import com.example.bank.bankapp.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_payment_list.*
 import kotlinx.android.synthetic.main.content_payment_list.*
-import kotlinx.android.synthetic.main.list_item_payment.*
 
 class PaymentListActivity : AppCompatActivity(), PaymentListContract.View {
 

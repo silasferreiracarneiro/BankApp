@@ -1,14 +1,15 @@
 package com.example.bank.bankapp.ui.paymentList
 
-import android.os.StrictMode
-import com.example.bank.bankapp.data.RetrofitClient
 import com.example.bank.bankapp.data.repository.PaymentListRepository
 import com.example.bank.bankapp.domain.CardList.ListPayment
-import com.example.bank.bankapp.ui.login.LoginContract
 
 class PaymentListPresenter(private val view: PaymentListContract.View): PaymentListContract.Presenter {
 
     lateinit var paymentListRepository: PaymentListRepository
+
+    init {
+        this.paymentListRepository = PaymentListRepository()
+    }
 
     override fun getListPayment(idUser: Int) {
 

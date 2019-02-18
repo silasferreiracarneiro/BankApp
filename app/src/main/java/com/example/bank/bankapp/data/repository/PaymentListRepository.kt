@@ -2,7 +2,7 @@ package com.example.bank.bankapp.data.repository
 
 import android.os.StrictMode
 import com.example.bank.bankapp.data.PaymentListAPI
-import com.example.bank.bankapp.data.RetrofitClient
+import com.example.bank.bankapp.infra.RetrofitClient
 import com.example.bank.bankapp.data.dto.PaymenteResponseDto
 import retrofit2.Response
 
