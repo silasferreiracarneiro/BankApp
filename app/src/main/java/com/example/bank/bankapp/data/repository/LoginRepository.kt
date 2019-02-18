@@ -10,6 +10,8 @@ import com.example.bank.bankapp.infra.RetrofitClient
 import com.example.bank.bankapp.data.dto.UsuarioResponseDTO
 import com.example.bank.bankapp.data.dto.LoginDto
 import com.example.bank.bankapp.infra.DbSettings
+import org.jetbrains.anko.db.MapRowParser
+import org.jetbrains.anko.db.select
 import retrofit2.Response
 
 class LoginRepository(ctx: Context) {
@@ -48,6 +50,25 @@ class LoginRepository(ctx: Context) {
         }catch (ex : Exception){
             ex.printStackTrace()
         }
+    }
+
+    fun getUser() : LoginDto {
+        try {
+
+            var query = db?.select(UserTable.NAME_TABLE_USUARIO)
+
+            return query?.parseOpt(object: MapRowParser<LoginDto> {
+                override fun parseRow(columns: Map<String, Any?>): LoginDto {
+
+                    return LoginDto(columns.getValue(UserTable.LOGIN)as String,
+                                    columns.getValue(UserTable.SENHA)as String)
+                }
+            })!!
+
+        }catch (e : Exception){
+            e.printStackTrace()
+        }
+        return null!!
     }
 
     private fun deleteAllUserDb(){

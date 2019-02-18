@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.example.bank.bankapp.R
+import com.example.bank.bankapp.domain.login.Login
 import com.example.bank.bankapp.domain.login.Usuario
 import com.example.bank.bankapp.ui.paymentList.PaymentListActivity
 import kotlinx.android.synthetic.main.activity_login.*
@@ -21,6 +22,8 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         supportActionBar?.hide()
 
         loginPresenter = LoginPresenter(this)
+
+        getUserLocal()
     }
 
     fun login(view: View){
@@ -37,7 +40,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     }
 
     override fun getActivityPayment(usuario: Usuario) {
-        
+
         var username = input_username.text?.toString()
         var textPassword = input_password.text?.toString()
         this.loginPresenter.inserUser(username!!, textPassword!!)
@@ -56,5 +59,14 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
     override fun getContext() : Context {
         return baseContext
+    }
+
+    override fun getUserLocal() {
+        this.loginPresenter.getUserLocal()
+    }
+
+    override fun setUserExiste(login: Login) {
+        input_username.setText(login.user!!)
+        input_password.setText(login.password!!)
     }
 }

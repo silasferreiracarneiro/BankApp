@@ -3,6 +3,7 @@ package com.example.bank.bankapp.ui.login
 import android.os.StrictMode
 import com.example.bank.bankapp.data.dto.LoginDto
 import com.example.bank.bankapp.data.repository.LoginRepository
+import com.example.bank.bankapp.domain.login.Login
 import java.util.regex.Pattern
 
 class LoginPresenter(private val view: LoginContract.View) : LoginContract.Presenter {
@@ -61,5 +62,16 @@ class LoginPresenter(private val view: LoginContract.View) : LoginContract.Prese
     override fun inserUser(username: String, password: String) {
         var user = LoginDto(password, username)
         this.repository.insertUser(user)
+    }
+
+    override fun getUserLocal() {
+        var dto = this.repository.getUser()
+
+        if(dto != null){
+            view.setUserExiste(dto.toDomain())
+        }
+        else{
+            return
+        }
     }
 }
