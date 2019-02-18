@@ -1,5 +1,14 @@
 package com.example.bank.bankapp.data.repository
 
-class LoginRepository {
+import com.example.bank.bankapp.data.dto.UsuarioResponseDTO
+import com.example.bank.bankapp.data.dto.LoginDto
+import com.example.bank.bankapp.data.dto.UsuarioDto
+import retrofit2.Call
+import retrofit2.http.Body
+import retrofit2.http.POST
 
+interface LoginRepository {
+
+    @POST("/api/login")
+    fun login(@Body user: LoginDto) : Call<UsuarioResponseDTO<UsuarioDto>>
 }

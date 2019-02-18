@@ -1,4 +1,7 @@
 package com.example.bank.bankapp.data.dto
 
-class LoginDto {
+class LoginDto(
+    user: String,
+    password: String
+) {
 }

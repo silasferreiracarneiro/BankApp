@@ -14,14 +14,13 @@ import java.util.concurrent.TimeUnit
 object RetrofitClient {
 
     private var ourinstance  : Retrofit? = null
-    var token : String = ""
 
     var okHttpClient = OkHttpClient().newBuilder().readTimeout(15, TimeUnit.SECONDS).addInterceptor(object : Interceptor {
         @Throws(IOException::class)
         override fun intercept(chain: Interceptor.Chain): okhttp3.Response {
             val originalRequest = chain.request()
 
-            val builder = originalRequest.newBuilder().header("Authorization","$token")
+            val builder = originalRequest.newBuilder().header("Content-Type","application/x-www-form-urlencoded")
 
             val newRequest = builder.build()
             return chain.proceed(newRequest)

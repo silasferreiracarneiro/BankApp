@@ -22,12 +22,11 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     }
 
     fun login(view: View){
-        var textPassword = input_password.text.toString()
-        //this.validateUSer(textPassword)
-        this.getActivityPayment()
+        var textPassword = input_password.text?.toString()
+        this.validateUSer("Test@1")
     }
 
-    override fun validateUSer(password: String) {
+    override fun validateUSer(password: String?) {
         loginPresenter.validatePassword(password)
     }
 
@@ -37,5 +36,11 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
 
     override fun getActivityPayment() {
         startActivity(Intent(this, PaymentListActivity::class.java))
+    }
+
+    override fun getLogin() {
+        var username = input_username.text?.toString()
+        var textPassword = input_password.text?.toString()
+        this.loginPresenter.sendLogin(username!!, textPassword!!)
     }
 }
