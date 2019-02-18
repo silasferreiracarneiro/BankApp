@@ -58,7 +58,7 @@
                     android:textStyle="bold"
                     android:onClick="login"
                     android:background="@drawable/rounded_button"
-                    android:textColor="@color/colorButton"
+                    android:textColor="@color/colorWhite"
 
                     android:text="Login"/>
         </LinearLayout>
