@@ -7,8 +7,7 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-interface LoginRepository {
+class LoginRepository {
 
-    @POST("/api/login")
-    fun login(@Body user: LoginDto) : Call<UsuarioResponseDTO>
+
 }

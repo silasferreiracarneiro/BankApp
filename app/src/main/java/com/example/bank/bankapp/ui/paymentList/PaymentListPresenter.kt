@@ -8,19 +8,11 @@ import com.example.bank.bankapp.ui.login.LoginContract
 
 class PaymentListPresenter(private val view: PaymentListContract.View): PaymentListContract.Presenter {
 
-    lateinit var provider: PaymentListRepository
-
-    init {
-        val retrofit = RetrofitClient.instance
-        provider = retrofit.create(PaymentListRepository::class.java)
-    }
+    lateinit var paymentListRepository: PaymentListRepository
 
     override fun getListPayment(idUser: Int) {
-        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-        StrictMode.setThreadPolicy(policy)
 
-        var call = provider.getPayment(idUser)
-        var response = call.execute()
+        var response = this.paymentListRepository.getListPayment(idUser)
 
         if(response.isSuccessful) {
             var body = response.body()

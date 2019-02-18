@@ -1,12 +1,27 @@
 package com.example.bank.bankapp.data.repository
 
+import android.os.StrictMode
+import com.example.bank.bankapp.data.PaymentListAPI
+import com.example.bank.bankapp.data.RetrofitClient
 import com.example.bank.bankapp.data.dto.PaymenteResponseDto
-import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.Response
 
-interface PaymentListRepository {
 
-    @GET("statements/{idUser}")
-    fun getPayment(@Path("idUser")idUser : Int) : Call<PaymenteResponseDto>
+class PaymentListRepository {
+
+    lateinit var provider: PaymentListAPI
+
+    init {
+        val retrofit = RetrofitClient.instance
+        provider = retrofit.create(PaymentListAPI::class.java)
+    }
+
+    fun getListPayment(idUser: Int): Response<PaymenteResponseDto> {
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+
+        var call = provider.getPayment(idUser)
+        return call.execute()
+    }
+
 }
