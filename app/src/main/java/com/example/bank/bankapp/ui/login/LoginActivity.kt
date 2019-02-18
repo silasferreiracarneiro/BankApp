@@ -66,7 +66,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     }
 
     override fun setUserExiste(login: Login) {
-        input_username.setText(login.user!!)
-        input_password.setText(login.password!!)
+        input_username.setText(login.password!!)
+        input_password.setText(login.user!!)
     }
 }
