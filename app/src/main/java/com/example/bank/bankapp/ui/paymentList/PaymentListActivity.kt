@@ -1,13 +1,16 @@
 package com.example.bank.bankapp.ui.paymentList
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.StaggeredGridLayoutManager
+import android.view.View
 import android.widget.Toast
 import com.example.bank.bankapp.R
 import com.example.bank.bankapp.domain.CardList.ListPayment
 import com.example.bank.bankapp.domain.CardList.PaymentAdapter
 import com.example.bank.bankapp.domain.login.Usuario
+import com.example.bank.bankapp.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_payment_list.*
 import kotlinx.android.synthetic.main.content_payment_list.*
 
@@ -48,6 +51,12 @@ class PaymentListActivity : AppCompatActivity(), PaymentListContract.View {
         this.paymentAdapter = PaymentAdapter(this, list)
         recycler_view.layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
         recycler_view.adapter = this.paymentAdapter
+    }
+
+    fun logout(view: View){
+        val i = Intent(this, LoginActivity::class.java)
+        i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(i)
     }
 
 }

@@ -10,7 +10,7 @@ import java.util.regex.Pattern
 class LoginPresenter(private val view: LoginContract.View) : LoginContract.Presenter {
 
     var provider: LoginRepository
-    var messagePassword: String = "Senha inválida"
+    var messagePassword: String = "Usuário ou senha inválidos"
 
     init {
         val retrofit = RetrofitClient.instance
@@ -19,17 +19,7 @@ class LoginPresenter(private val view: LoginContract.View) : LoginContract.Prese
 
     override fun validatePassword(password: String?) {
 
-        var usuario = Usuario(
-            1,
-            "Jose da Silva Teste",
-            "2050",
-            "012314564",
-            3.3445
-        )
-
-        view.getActivityPayment(usuario)
-
-        /*if(password.isNullOrEmpty() || password.isNullOrBlank()){
+        if(password.isNullOrEmpty() || password.isNullOrBlank()){
             view.setMessageUser(messagePassword)
             return
         }
@@ -48,7 +38,7 @@ class LoginPresenter(private val view: LoginContract.View) : LoginContract.Prese
         {
             view.getLogin()
             return
-        }*/
+        }
     }
 
     override fun sendLogin(password: String, username: String) {
