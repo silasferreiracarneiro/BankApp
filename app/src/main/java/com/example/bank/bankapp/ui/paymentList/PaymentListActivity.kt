@@ -10,9 +10,12 @@ import com.example.bank.bankapp.R
 import com.example.bank.bankapp.domain.CardList.ListPayment
 import com.example.bank.bankapp.domain.CardList.PaymentAdapter
 import com.example.bank.bankapp.domain.login.Usuario
+import com.example.bank.bankapp.infra.formatutils.DateFormat
+import com.example.bank.bankapp.infra.formatutils.MoneyFormat.Companion.currencyFormatMoney
 import com.example.bank.bankapp.ui.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_payment_list.*
 import kotlinx.android.synthetic.main.content_payment_list.*
+import kotlinx.android.synthetic.main.list_item_payment.*
 
 class PaymentListActivity : AppCompatActivity(), PaymentListContract.View {
 
@@ -33,8 +36,8 @@ class PaymentListActivity : AppCompatActivity(), PaymentListContract.View {
 
         if(usuario != null){
             txt_name_user.text = usuario.name
-            txt_conta.text = "${usuario.agency}/${usuario.bankAccount}"
-            txt_saldo.text = "${usuario.bankAccount}"
+            txt_conta.text = "${usuario.bankAccount} / ${usuario.agency}"
+            txt_saldo.text = "${currencyFormatMoney(usuario.balance)}"
             this.getListPayment(usuario.userId)
         }
     }

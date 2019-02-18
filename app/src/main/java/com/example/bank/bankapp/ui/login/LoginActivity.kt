@@ -44,6 +44,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     override fun getLogin() {
         var username = input_username.text?.toString()
         var textPassword = input_password.text?.toString()
+
         this.loginPresenter.sendLogin(username!!, textPassword!!)
     }
 }

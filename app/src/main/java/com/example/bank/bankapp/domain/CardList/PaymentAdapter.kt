@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.bank.bankapp.R
 import com.example.bank.bankapp.infra.formatutils.DateFormat.Companion.toDateFormat
+import com.example.bank.bankapp.infra.formatutils.MoneyFormat
 
 class PaymentAdapter(val context: Context, var payments: ArrayList<ListPayment>) : RecyclerView.Adapter<PaymentHolder>() {
 
@@ -22,7 +23,7 @@ class PaymentAdapter(val context: Context, var payments: ArrayList<ListPayment>)
         var payment = payments?.get(p1)
         holder.datePayment.text = toDateFormat(payment.date)
         holder.typePayment.text = payment.typePayment
-        holder.valuePayment.text = payment.valuePayment.toString()
+        holder.valuePayment.text = "${MoneyFormat.currencyFormatMoney(payment.valuePayment)}"
         holder.whatPayment.text = payment.typeAccount
     }
 }

@@ -53,7 +53,7 @@ class LoginPresenter(private val view: LoginContract.View) : LoginContract.Prese
         if(response.isSuccessful) {
             var body = response.body()
 
-            if(body?.error != null){
+            if(body?.error?.code!! != 0){
                 this.view.setMessageUser(body?.error.message)
                 return
             }else{
