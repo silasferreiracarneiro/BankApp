@@ -10,78 +10,63 @@
         android:layout_marginTop="5dp"
         card_view:cardUseCompatPadding="true">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/white"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-        <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="35dp"
-                android:orientation="horizontal"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
-                tools:ignore="MissingConstraints">
+        <TextView
+                android:id="@+id/type_payment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                tools:text="Pagamento"
+                android:textColor="@color/colorTextListGrid"
+                android:textSize="16dp"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                    android:layout_width="190dp"
-                    android:layout_height="35dp"
-                    android:orientation="horizontal"
-                    tools:ignore="MissingConstraints">
-                <TextView
-                        android:id="@+id/typePayment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:textColor="@color/colorTextListGrid"
-                        android:text="Pagamento"/>
-            </LinearLayout>
-
-            <TextView
-                    android:id="@+id/datePayment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="12/05/2018"
-                    android:gravity="end"
-                    android:textColor="@color/colorTextListGrid"
-                    android:textSize="12sp" />
-        </LinearLayout>
+        <TextView
+                android:id="@+id/date_payment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="end"
+                android:padding="5dp"
+                tools:text="12/05/2018"
+                android:textColor="@color/colorTextListGrid"
+                android:textSize="12sp"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
 
 
-        <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="35dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:orientation="horizontal"
-                tools:ignore="MissingConstraints">
+        <TextView
+                android:id="@+id/what_Payment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/colorBlack"
+                android:textSize="16dp"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/type_payment"
+                tools:text="Conta de luz" />
 
-            <LinearLayout
-                    android:layout_width="180dp"
-                    android:layout_height="35dp"
-                    android:orientation="horizontal"
-                    tools:ignore="MissingConstraints">
-                <TextView
-                        android:id="@+id/whatPayment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="16dp"
-                        android:textColor="@color/colorBlack"
-                        android:text="Conta de luz"/>
-            </LinearLayout>
+        <TextView
+                android:id="@+id/value_payment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:gravity="end"
+                android:textColor="@color/colorBlack"
+                android:textSize="20sp"
+                card_view:layout_constraintBottom_toBottomOf="@+id/what_Payment"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintTop_toTopOf="@+id/what_Payment"
+                tools:text="$1.000,00" />
 
-            <TextView
-                    android:id="@+id/valuePayment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="$1.000,00"
-                    android:gravity="end"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="20sp" />
-        </LinearLayout>
-    </LinearLayout>
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -17,7 +17,7 @@ class PaymentListActivity : AppCompatActivity(), PaymentListContract.View {
         }
     }
 
-    lateinit var paymentListPayment: PaymentListPresenter
+    lateinit var presenter: PaymentListPresenter
     lateinit var paymentAdapter: PaymentAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
