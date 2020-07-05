@@ -1,6 +1,7 @@
 package com.example.bank.bankapp.data.api
 
 import com.example.bank.bankapp.data.api.request.UserRequest
+import com.example.bank.bankapp.data.api.response.PaymentResponse
 import com.example.bank.bankapp.data.api.response.UserAccountResponse
 import kotlinx.coroutines.Deferred
 import retrofit2.http.*
@@ -15,5 +16,5 @@ interface Api {
     @GET("statements/{idUser}")
     fun listStatement(
         @Path("idUser")idUser : Int
-    )
+    ): Deferred<PaymentResponse>
 }

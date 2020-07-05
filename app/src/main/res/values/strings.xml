@@ -7,4 +7,7 @@
     <string name="password_error">Favor, digite uma senha válida!</string>
     <string name="username_error">Favor, digite um usuário válida!</string>
     <string name="error_default">Opss, algo de errado aconteceu, sentimos muito por isso… \n Mas já estamos trabalhando para resolver esse problema =D</string>
+    <string name="saldo">Saldo</string>
+    <string name="conta">Conta</string>
+    <string name="recentes">Recentes</string>
 </resources>

@@ -7,5 +7,5 @@ object Constants {
     const val USERNAME = "USERNAME"
     const val PASSWORD = "PASSWORD"
 
-    const val ID_USER = "ID_USER"
+    const val USER = "USER"
 }

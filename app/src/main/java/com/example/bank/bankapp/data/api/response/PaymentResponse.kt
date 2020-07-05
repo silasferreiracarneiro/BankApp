@@ -3,7 +3,7 @@ package com.example.bank.bankapp.data.api.response
 import com.example.bank.bankapp.model.Payment
 import com.google.gson.annotations.SerializedName
 
-class StatementResponse (
+class PaymentResponse (
     @SerializedName("statementList") val statementListResponse : List<StatementListResponse>,
     @SerializedName("error") val errorResponse : ErrorResponse
 ) {

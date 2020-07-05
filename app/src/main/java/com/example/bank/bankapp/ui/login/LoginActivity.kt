@@ -69,7 +69,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     }
 
     override fun sucessCallApi(user: UserAccount?) {
-        startActivity(user?.userId?.let { newInstance(it, this) })
+        startActivity(user?.let { newInstance(it, this) })
     }
 
     override fun setLasUserLogged(username: String?, password: String?) {
