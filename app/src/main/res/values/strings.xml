@@ -1,5 +1,9 @@
 <resources>
-    <string name="app_name">BankApp</string>
-    <string name="title_activity_payment_list">Payment List</string>
     <string name="action_settings">Settings</string>
+    <string name="e_mail_cpf">E-mail/CPF</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+
+    <string name="password_error">Favor, digite uma senha válida!</string>
+    <string name="username_error">Favor, digite um usuário válida!</string>
 </resources>

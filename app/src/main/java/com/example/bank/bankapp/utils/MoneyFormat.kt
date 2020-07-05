@@ -1,4 +1,4 @@
-package com.example.bank.bankapp.infra.formatutils
+package com.example.bank.bankapp.utils
 
 import java.text.DecimalFormat
 

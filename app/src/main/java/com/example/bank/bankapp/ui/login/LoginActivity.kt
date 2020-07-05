@@ -1,72 +1,62 @@
 package com.example.bank.bankapp.ui.login
 
-import android.content.Context
-import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
+import android.widget.Button
+import android.widget.EditText
 import com.example.bank.bankapp.R
-import com.example.bank.bankapp.domain.login.Login
-import com.example.bank.bankapp.domain.login.Usuario
-import com.example.bank.bankapp.ui.paymentList.PaymentListActivity
-import kotlinx.android.synthetic.main.activity_login.*
+import com.example.bank.bankapp.model.UserAccount
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
 
-    private lateinit var loginPresenter : LoginPresenter
+    private lateinit var presenter : LoginPresenter
+
+    private lateinit var btnLogin: Button
+    private lateinit var edtUsername: EditText
+    private lateinit var edtPassword: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        supportActionBar?.hide()
 
-        loginPresenter = LoginPresenter(this)
-
-        getUserLocal()
+        bindProperties()
+        bindEventProperties()
     }
 
-    fun login(view: View){
-        var textPassword = input_password.text?.toString()
-        this.validateUSer(textPassword)
+    private fun bindProperties() {
+        this.btnLogin = findViewById(R.id.btn_login)
+        this.edtUsername = findViewById(R.id.input_username)
+        this.edtPassword = findViewById(R.id.input_password)
     }
 
-    override fun validateUSer(password: String?) {
-        loginPresenter.validatePassword(password)
+    private fun bindEventProperties() {
+        this.btnLogin.setOnClickListener { login() }
     }
 
-    override fun setMessageUser(message: String){
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    private fun login() {
+        val username = edtUsername.text?.toString()
+        val password = edtPassword.text?.toString()
+        presenter.login(username, password)
     }
 
-    override fun getActivityPayment(usuario: Usuario) {
-
-        var username = input_username.text?.toString()
-        var textPassword = input_password.text?.toString()
-        this.loginPresenter.inserUser(username!!, textPassword!!)
-
-        var intent = Intent(this, PaymentListActivity::class.java)
-        intent.putExtra("USUARIO", usuario)
-        startActivity(intent)
+    override fun invalidFields() {
+        passwordInvalido()
+        usernameInvalido()
     }
 
-    override fun getLogin() {
-        var username = input_username.text?.toString()
-        var textPassword = input_password.text?.toString()
-
-        this.loginPresenter.sendLogin(username!!, textPassword!!)
+    override fun passwordInvalido() {
+        edtPassword.error = getString(R.string.password_error)
     }
 
-    override fun getContext() : Context {
-        return baseContext
+    override fun usernameInvalido() {
+        edtUsername.error = getString(R.string.username_error)
     }
 
-    override fun getUserLocal() {
-        this.loginPresenter.getUserLocal()
+    override fun errorLogin(message: String?) {
+
     }
 
-    override fun setUserExiste(login: Login) {
-        input_username.setText(login.password!!)
-        input_password.setText(login.user!!)
+    override fun sucessCallApi(user: UserAccount?) {
+
     }
 }

@@ -1,71 +1,66 @@
 package com.example.bank.bankapp.ui.login
 
-import android.os.StrictMode
-import com.example.bank.bankapp.data.dto.LoginDto
-import com.example.bank.bankapp.data.repository.LoginRepository
-import com.example.bank.bankapp.domain.login.Login
-import java.util.regex.Pattern
+import com.example.bank.bankapp.data.api.config.ResultApi
+import com.example.bank.bankapp.data.api.response.UserAccountResponse
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-class LoginPresenter(private val view: LoginContract.View) : LoginContract.Presenter {
+class LoginPresenter(private val view: LoginContract.View, private val usecase: LoginContract.Usecase) : LoginContract.Presenter {
 
-    lateinit var repository: LoginRepository
-    var messagePassword: String = "Usuário ou senha inválidos"
+    override fun login(username: String?, password: String?) {
+        val usernameResult =  usecase.validaUsername(username)
+        val passwordResult = usecase.validaPassword(password)
 
-    init {
-        repository = LoginRepository(view.getContext()!!)
+        afterValidation(
+            usernameResult,
+            passwordResult,
+            username,
+            password
+        )
     }
 
-    override fun validatePassword(password: String?) {
-
-        if(password.isNullOrEmpty() || password.isNullOrBlank()){
-            view.setMessageUser(messagePassword)
-            return
-        }
-
-        val passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#\$%^&+=])(?=\\S+$).{4,}\$"
-
-        var pattern = Pattern.compile(passwordPattern)
-        var matcher = pattern.matcher(password)
-        var result = matcher.matches()
-
-        if(!result){
-            view.setMessageUser(messagePassword)
-            return
-        }
+    private fun afterValidation(usernameResult: Boolean,
+                                passwordResult: Boolean,
+                                username: String?,
+                                password: String?) {
+        if (usernameResult && passwordResult)
+            view.invalidFields()
+        else if (usernameResult)
+            view.usernameInvalido()
+        else if (passwordResult)
+            view.passwordInvalido()
         else
-        {
-            view.getLogin()
-            return
+            effectiveLogin(username?.run { this } ?: "", password?.run { this } ?: "")
+    }
+
+    private fun effectiveLogin(username: String, password: String) {
+        GlobalScope.launch {
+            val login = usecase.login(username, password)
+            afterLogin(
+                login,
+                username,
+                password
+            )
         }
     }
 
-    override fun sendLogin(password: String, username: String) {
-        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-        StrictMode.setThreadPolicy(policy)
-
-        var user = LoginDto(password, username)
-        var response = repository.sendLogin(user)
-
-        if(response.isSuccessful) {
-            var body = response.body()
-
-            if(body?.error?.code!! != 0){
-                this.view.setMessageUser(body?.error.message)
-                return
-            }else{
-                this.view.getActivityPayment(body?.userAccount?.toDomain()!!)
-                return
-            }
+    private fun afterLogin(
+        login: ResultApi<UserAccountResponse>,
+        username: String,
+        password: String
+    ) {
+        when (login.isSucess()) {
+            true -> salveUserPrefesContinue(login.value, username, password)
+            false -> view.errorLogin(login.error?.message)
         }
     }
 
-    override fun inserUser(username: String, password: String) {
-        var user = LoginDto(password, username)
-        this.repository.insertUser(user)
+    private fun salveUserPrefesContinue(
+        value: UserAccountResponse?,
+        username: String,
+        password: String
+    ) {
+        usecase.saveUserPrefs(username, password)
+        view.sucessCallApi(value?.parseUserAccountResponseToUserAccount())
     }
-
-    override fun getUserLocal() {
-        var dto = this.repository.getUser()
-        view.setUserExiste(dto.toDomain())
-}
 }

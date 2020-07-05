@@ -1,25 +1,27 @@
 package com.example.bank.bankapp.ui.login
 
-import android.content.Context
-import com.example.bank.bankapp.domain.login.Login
-import com.example.bank.bankapp.domain.login.Usuario
+import com.example.bank.bankapp.data.api.config.ResultApi
+import com.example.bank.bankapp.data.api.response.UserAccountResponse
+import com.example.bank.bankapp.model.UserAccount
 
 interface LoginContract {
 
+    interface Usecase {
+        fun validaUsername(username: String?): Boolean
+        fun validaPassword(password: String?): Boolean
+        suspend fun login(username: String, password: String): ResultApi<UserAccountResponse>
+        fun saveUserPrefs(username: String, password: String)
+    }
+
     interface Presenter{
-        fun validatePassword(password : String?)
-        fun sendLogin(password : String, username : String)
-        fun inserUser(password : String, username : String)
-        fun getUserLocal()
+        fun login(username: String?, password: String?)
     }
 
     interface View{
-        fun validateUSer(password : String?)
-        fun setMessageUser(message: String)
-        fun getActivityPayment(usuario: Usuario)
-        fun getLogin()
-        fun getContext() : Context
-        fun getUserLocal()
-        fun setUserExiste(login: Login)
+        fun invalidFields()
+        fun passwordInvalido()
+        fun usernameInvalido()
+        fun errorLogin(message: String?)
+        fun sucessCallApi(user: UserAccount?)
     }
 }
