@@ -2,10 +2,12 @@ package com.example.bank.bankapp.ui.login
 
 import com.example.bank.bankapp.data.api.config.ResultApi
 import com.example.bank.bankapp.data.api.response.UserAccountResponse
+import com.example.bank.bankapp.provider.providerLoginUsecase
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class LoginPresenter(private val view: LoginContract.View, private val usecase: LoginContract.Usecase) : LoginContract.Presenter {
+class LoginPresenter(private val view: LoginContract.View,
+                     private val usecase: LoginContract.Usecase = providerLoginUsecase()) : LoginContract.Presenter {
 
     override fun login(username: String?, password: String?) {
         val usernameResult =  usecase.validaUsername(username)
@@ -50,16 +52,23 @@ class LoginPresenter(private val view: LoginContract.View, private val usecase: 
         password: String
     ) {
         when (login.isSucess()) {
-            true -> salveUserPrefesContinue(login.value, username, password)
+            true -> validatedReturnCall(login.value, username, password)
             false -> view.errorLogin(login.error?.message)
         }
     }
 
-    private fun salveUserPrefesContinue(
+    private fun validatedReturnCall(
         value: UserAccountResponse?,
         username: String,
         password: String
     ) {
+        when (value?.errorResponse == null) {
+            true -> sucessCallApi(value, username, password)
+            false -> view.errorLogin(value?.errorResponse?.message)
+        }
+    }
+
+    private fun sucessCallApi(value: UserAccountResponse?, username: String, password: String) {
         usecase.saveUserPrefs(username, password)
         view.sucessCallApi(value?.parseUserAccountResponseToUserAccount())
     }

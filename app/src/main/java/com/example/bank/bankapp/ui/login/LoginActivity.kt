@@ -19,8 +19,13 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        initPresenter()
         bindProperties()
         bindEventProperties()
+    }
+
+    private fun initPresenter() {
+        presenter = LoginPresenter(this)
     }
 
     private fun bindProperties() {
