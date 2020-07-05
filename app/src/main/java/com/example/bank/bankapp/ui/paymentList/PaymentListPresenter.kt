@@ -3,6 +3,7 @@ package com.example.bank.bankapp.ui.paymentList
 import com.example.bank.bankapp.data.api.config.ResultApi
 import com.example.bank.bankapp.data.api.response.PaymentResponse
 import com.example.bank.bankapp.provider.providerPaymentListUsecase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -11,7 +12,7 @@ class PaymentListPresenter(private val view: PaymentListContract.View,
     PaymentListContract.Presenter {
 
     override fun getListPayment(it: Int) {
-        GlobalScope.launch {
+        GlobalScope.launch(Dispatchers.Main) {
             val listPayment = usercase.getListPayment(it)
             afterCall(
                 listPayment

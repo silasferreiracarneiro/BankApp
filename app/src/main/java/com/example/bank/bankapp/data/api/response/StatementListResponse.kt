@@ -6,5 +6,5 @@ data class StatementListResponse (
 	@SerializedName("title") val title : String,
 	@SerializedName("desc") val desc : String,
 	@SerializedName("date") val date : String,
-	@SerializedName("value") val value : Int
+	@SerializedName("value") val value : Double
 )

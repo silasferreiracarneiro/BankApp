@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageButton
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -28,7 +29,7 @@ class PaymentListActivity : AppCompatActivity(), PaymentListContract.View {
 
     lateinit var presenter: PaymentListContract.Presenter
 
-    private lateinit var coordinatorLayout: ConstraintLayout
+    private lateinit var coordinatorLayout: ScrollView
     private lateinit var recycler: RecyclerView
     private lateinit var logout: ImageButton
     private lateinit var tvNameUser: TextView
@@ -72,7 +73,7 @@ class PaymentListActivity : AppCompatActivity(), PaymentListContract.View {
 
     private fun configurelayout(user: UserAccount) {
         this.tvNameUser.text = user.name
-        this.tvConta.text = "${user.agency} / ${user.bankAccount}"
+        this.tvConta.text = "${user.bankAccount} / ${user.agency}"
         this.tvSaldo.text = currencyFormatMoney(user.balance)
     }
 
@@ -91,6 +92,6 @@ class PaymentListActivity : AppCompatActivity(), PaymentListContract.View {
         recycler.layoutManager = LinearLayoutManager(this)
         recycler.isNestedScrollingEnabled = false
         recycler.adapter = PaymentAdapter(list)
-        ((recycler?.adapter as PaymentAdapter).notifyDataSetChanged())
+        ((recycler.adapter as PaymentAdapter).notifyDataSetChanged())
     }
 }
