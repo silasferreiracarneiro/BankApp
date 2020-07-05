@@ -1,8 +1,8 @@
 package com.example.bank.bankapp.ui.login
 
-import com.example.bank.bankapp.data.prefs.PrefsProvider
+import com.example.bank.bankapp.data.prefs.SharedPreferencesManager
 
-class LoginUsecase(private val repository: LoginRepository, private val prefs: PrefsProvider) : LoginContract.Usecase {
+class LoginUsecase(private val repository: LoginRepository, private val prefs: SharedPreferencesManager) : LoginContract.Usecase {
 
     private val passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#\$%^&+=])(?=\\S+$).{4,}\$"
 
@@ -20,4 +20,6 @@ class LoginUsecase(private val repository: LoginRepository, private val prefs: P
     override fun saveUserPrefs(username: String, password: String) {
         prefs.saveUser(username, password)
     }
+
+    override fun getLastUserLogged(): Map<String, String> = prefs.getUser()
 }

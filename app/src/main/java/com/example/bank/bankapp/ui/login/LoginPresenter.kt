@@ -1,13 +1,31 @@
 package com.example.bank.bankapp.ui.login
 
+import android.content.Context
 import com.example.bank.bankapp.data.api.config.ResultApi
 import com.example.bank.bankapp.data.api.response.UserAccountResponse
 import com.example.bank.bankapp.provider.providerLoginUsecase
+import com.example.bank.bankapp.utils.Constants.PASSWORD
+import com.example.bank.bankapp.utils.Constants.USERNAME
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class LoginPresenter(private val view: LoginContract.View,
-                     private val usecase: LoginContract.Usecase = providerLoginUsecase()) : LoginContract.Presenter {
+                     private val context: Context,
+                     private val usecase: LoginContract.Usecase = providerLoginUsecase(context)) : LoginContract.Presenter {
+
+    override fun getLastUserLogged() {
+        val lastUserLogged = usecase.getLastUserLogged()
+         afterSearch(
+             lastUserLogged
+         )
+    }
+
+    private fun afterSearch(lastUserLogged: Map<String, String>) {
+        view.setLasUserLogged(
+            lastUserLogged[USERNAME],
+            lastUserLogged[PASSWORD]
+        )
+    }
 
     override fun login(username: String?, password: String?) {
         val usernameResult =  usecase.validaUsername(username)
@@ -62,7 +80,7 @@ class LoginPresenter(private val view: LoginContract.View,
         username: String,
         password: String
     ) {
-        when (value?.errorResponse == null) {
+        when (value?.errorResponse?.message == null) {
             true -> sucessCallApi(value, username, password)
             false -> view.errorLogin(value?.errorResponse?.message)
         }

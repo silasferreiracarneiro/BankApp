@@ -1,7 +1,8 @@
 package com.example.bank.bankapp.provider
 
-import com.example.bank.bankapp.data.prefs.PrefsProvider
+import android.content.Context
+import com.example.bank.bankapp.data.prefs.SharedPreferencesManager
 
-fun providerPrefs() : PrefsProvider {
-    return PrefsProvider()
+fun providerPrefs(context: Context): SharedPreferencesManager {
+    return SharedPreferencesManager(context)
 }

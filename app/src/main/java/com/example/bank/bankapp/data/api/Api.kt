@@ -1,18 +1,15 @@
 package com.example.bank.bankapp.data.api
 
+import com.example.bank.bankapp.data.api.request.UserRequest
 import com.example.bank.bankapp.data.api.response.UserAccountResponse
 import kotlinx.coroutines.Deferred
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface Api {
 
     @POST("login")
     fun login(
-        @Query("user") user: String,
-        @Query("password") password: String
+        @Body user: UserRequest
     ): Deferred<UserAccountResponse>
 
     @GET("statements/{idUser}")

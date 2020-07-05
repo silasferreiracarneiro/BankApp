@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.bank.bankapp.R
 import com.example.bank.bankapp.model.UserAccount
+import com.example.bank.bankapp.ui.paymentList.PaymentListActivity.Companion.newInstance
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -26,10 +27,11 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
         initPresenter()
         bindProperties()
         bindEventProperties()
+        presenter.getLastUserLogged()
     }
 
     private fun initPresenter() {
-        presenter = LoginPresenter(this)
+        presenter = LoginPresenter(this, this)
     }
 
     private fun bindProperties() {
@@ -67,6 +69,11 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     }
 
     override fun sucessCallApi(user: UserAccount?) {
+        startActivity(user?.userId?.let { newInstance(it, this) })
+    }
 
+    override fun setLasUserLogged(username: String?, password: String?) {
+        edtUsername.setText(username)
+        edtPassword.setText(password)
     }
 }

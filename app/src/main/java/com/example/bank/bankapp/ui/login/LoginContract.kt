@@ -11,10 +11,12 @@ interface LoginContract {
         fun validaPassword(password: String?): Boolean
         suspend fun login(username: String, password: String): ResultApi<UserAccountResponse>
         fun saveUserPrefs(username: String, password: String)
+        fun getLastUserLogged() : Map<String, String>
     }
 
     interface Presenter{
         fun login(username: String?, password: String?)
+        fun getLastUserLogged()
     }
 
     interface View{
@@ -23,5 +25,6 @@ interface LoginContract {
         fun usernameInvalido()
         fun errorLogin(message: String?)
         fun sucessCallApi(user: UserAccount?)
+        fun setLasUserLogged(username: String?, password: String?)
     }
 }

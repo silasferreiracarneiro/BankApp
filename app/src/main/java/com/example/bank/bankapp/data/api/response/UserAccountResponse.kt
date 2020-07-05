@@ -9,6 +9,12 @@ class UserAccountResponse (
 ) {
 
     fun parseUserAccountResponseToUserAccount(): UserAccount {
-        return UserAccount()
+        return UserAccount(
+            userAccount.userId,
+            userAccount.name,
+            userAccount.bankAccount,
+            userAccount.agency,
+            userAccount.balance
+        )
     }
 }
