@@ -1,6 +1,8 @@
 package com.example.bank.bankapp.ui.login
 
 import com.example.bank.bankapp.data.prefs.SharedPreferencesManager
+import com.example.bank.bankapp.utils.isValidCpf
+import com.example.bank.bankapp.utils.isValidEmail
 import java.util.regex.Pattern
 
 class LoginUsecase(private val repository: LoginRepository, private val prefs: SharedPreferencesManager) : LoginContract.Usecase {
@@ -8,10 +10,14 @@ class LoginUsecase(private val repository: LoginRepository, private val prefs: S
     private val passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#\$%^&+=])(?=\\S+$).{4,}\$"
 
     override fun validaUsername(username: String?): Boolean {
-        return username == null || username.isBlank() || username.isEmpty()
+        return if (username == null || username.isBlank() || username.isEmpty())
+            true
+        else !(username.isValidCpf() || username.isValidEmail())
     }
 
     override fun validaPassword(password: String?): Boolean {
+        if(password == null)
+            return true
         val pattern = Pattern.compile(passwordPattern)
         val matcher = pattern.matcher(password)
         return !matcher.matches()

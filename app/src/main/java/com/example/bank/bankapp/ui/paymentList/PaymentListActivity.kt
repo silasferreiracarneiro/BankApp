@@ -7,14 +7,13 @@ import android.widget.ImageButton
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bank.bankapp.R
 import com.example.bank.bankapp.model.Payment
 import com.example.bank.bankapp.model.UserAccount
 import com.example.bank.bankapp.utils.Constants.USER
-import com.example.bank.bankapp.utils.MoneyFormat.Companion.currencyFormatMoney
+import com.example.bank.bankapp.utils.currencyFormatMoney
 import com.google.android.material.snackbar.Snackbar
 
 class PaymentListActivity : AppCompatActivity(), PaymentListContract.View {
@@ -74,7 +73,7 @@ class PaymentListActivity : AppCompatActivity(), PaymentListContract.View {
     private fun configurelayout(user: UserAccount) {
         this.tvNameUser.text = user.name
         this.tvConta.text = "${user.bankAccount} / ${user.agency}"
-        this.tvSaldo.text = currencyFormatMoney(user.balance)
+        this.tvSaldo.text = user.balance.currencyFormatMoney()
     }
 
     override fun showErrorUser(message: String?) {

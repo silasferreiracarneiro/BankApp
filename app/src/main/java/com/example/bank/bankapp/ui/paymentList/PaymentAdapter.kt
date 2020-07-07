@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bank.bankapp.R
 import com.example.bank.bankapp.model.Payment
-import com.example.bank.bankapp.utils.MoneyFormat.Companion.currencyFormatMoney
+import com.example.bank.bankapp.utils.currencyFormatMoney
 
 class PaymentAdapter (var payments: List<Payment>): RecyclerView.Adapter<PaymentAdapter.PaymentViewHolder>() {
 
@@ -36,7 +36,7 @@ class PaymentAdapter (var payments: List<Payment>): RecyclerView.Adapter<Payment
             this.title.text = payments.title
             this.date.text = payments.date
             this.descrition.text = payments.desc
-            this.value.text = currencyFormatMoney(payments.value)
+            this.value.text = payments.value.currencyFormatMoney()
         }
     }
 }
