@@ -1,27 +1,32 @@
 package com.example.bank.bankapp.ui.login
 
 import com.example.bank.bankapp.data.prefs.SharedPreferencesManager
-import com.example.bank.bankapp.utils.isValidEmail
+import com.example.bank.bankapp.config.Contants.PASSWORD
+import com.example.bank.bankapp.config.Contants.USERNAME
+import com.example.bank.bankapp.mock.getResultSucessLoginRepsoitory
+import io.mockk.MockKAnnotations
+import io.mockk.coEvery
+import io.mockk.impl.annotations.MockK
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
 class LoginUsecaseTest {
 
-    @Mock
+    @MockK
     lateinit var repository: LoginRepository
 
-    @Mock
+    @MockK
     lateinit var prefs: SharedPreferencesManager
 
     lateinit var usecase: LoginUsecase
 
     @Before
     fun init() {
+        MockKAnnotations.init(this, relaxUnitFun = true)
         usecase = LoginUsecase(repository, prefs)
     }
 
@@ -73,5 +78,16 @@ class LoginUsecaseTest {
     @Test
     fun `validaPassword - valida passando um password valido`() {
         Assert.assertFalse(usecase.validaPassword("Olj@123"))
+    }
+
+    @Test
+    fun `login - valida chamada de login quando da erro informando uma senha invalida`() {
+        coEvery { usecase.login(USERNAME, PASSWORD) } returns getResultSucessLoginRepsoitory()
+
+    }
+
+    @Test
+    fun `login - valida chamada de login quando da sucesso`() {
+        coEvery { usecase.login(USERNAME, PASSWORD) } returns getResultSucessLoginRepsoitory()
     }
 }
