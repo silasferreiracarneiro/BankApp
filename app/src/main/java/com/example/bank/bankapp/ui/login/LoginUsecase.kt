@@ -24,7 +24,7 @@ class LoginUsecase(private val repository: LoginRepository, private val prefs: S
     }
 
     override suspend fun login(username: String, password: String)
-            = repository.loginNetwork(username, password)
+            = repository.login(username, password)
 
     override fun saveUserPrefs(username: String, password: String) {
         prefs.saveUser(username, password)

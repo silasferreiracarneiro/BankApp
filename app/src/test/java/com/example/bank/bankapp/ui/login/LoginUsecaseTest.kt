@@ -3,10 +3,13 @@ package com.example.bank.bankapp.ui.login
 import com.example.bank.bankapp.data.prefs.SharedPreferencesManager
 import com.example.bank.bankapp.config.Contants.PASSWORD
 import com.example.bank.bankapp.config.Contants.USERNAME
-import com.example.bank.bankapp.mock.getResultSucessLoginRepsoitory
+import com.example.bank.bankapp.mock.getResultApiLoginErrorPassword
+import com.example.bank.bankapp.mock.getResultApiLoginFailCall
+import com.example.bank.bankapp.mock.getResultApiLoginSucessCall
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -82,12 +85,39 @@ class LoginUsecaseTest {
 
     @Test
     fun `login - valida chamada de login quando da erro informando uma senha invalida`() {
-        coEvery { usecase.login(USERNAME, PASSWORD) } returns getResultSucessLoginRepsoitory()
+        coEvery { repository.login(USERNAME, PASSWORD) } returns getResultApiLoginErrorPassword()
 
+        runBlocking {
+            val login = usecase.login(USERNAME, PASSWORD)
+            Assert.assertEquals(
+                login.value?.errorResponse?.message,
+                getResultApiLoginErrorPassword().value?.errorResponse?.message
+            )
+        }
     }
 
     @Test
     fun `login - valida chamada de login quando da sucesso`() {
-        coEvery { usecase.login(USERNAME, PASSWORD) } returns getResultSucessLoginRepsoitory()
+        coEvery { repository.login(USERNAME, PASSWORD) } returns getResultApiLoginSucessCall()
+        runBlocking {
+            val login = usecase.login(USERNAME, PASSWORD)
+            Assert.assertEquals(
+                login.isSucess(),
+                getResultApiLoginSucessCall().isSucess()
+            )
+        }
+    }
+
+    @Test
+    fun `login - valida chamada de login quando da erro na chamada`() {
+        coEvery { repository.login(USERNAME, PASSWORD) } returns getResultApiLoginFailCall()
+
+        runBlocking {
+            val login = usecase.login(USERNAME, PASSWORD)
+            Assert.assertEquals(
+                login.isSucess(),
+                getResultApiLoginFailCall().isSucess()
+            )
+        }
     }
 }

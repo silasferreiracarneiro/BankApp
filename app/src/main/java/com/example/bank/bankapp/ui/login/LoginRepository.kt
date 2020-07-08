@@ -8,7 +8,7 @@ import com.example.bank.bankapp.data.api.response.UserAccountResponse
 
 class LoginRepository(private val api: Api) {
 
-    suspend fun loginNetwork(login: String, password: String): ResultApi<UserAccountResponse> {
+    suspend fun login(login: String, password: String): ResultApi<UserAccountResponse> {
         val userRequest = UserRequest(login, password)
 
         return doResquest {
