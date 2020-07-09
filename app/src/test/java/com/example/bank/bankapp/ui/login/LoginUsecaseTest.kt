@@ -102,7 +102,7 @@ class LoginUsecaseTest {
         runBlocking {
             val login = usecase.login(USERNAME, PASSWORD)
             Assert.assertEquals(
-                login.isSucess(),
+                true,
                 getResultApiLoginSucessCall().isSucess()
             )
         }
@@ -115,9 +115,61 @@ class LoginUsecaseTest {
         runBlocking {
             val login = usecase.login(USERNAME, PASSWORD)
             Assert.assertEquals(
-                login.isSucess(),
+                false,
                 getResultApiLoginFailCall().isSucess()
             )
         }
+    }
+
+    @Test
+    fun `saveUserPrefs - testa salvando o usuario e a senha que o usuario digitou`() {
+        //coEvery { prefs.saveUser(USERNAME, PASSWORD) }
+        coEvery { prefs.getUser() } returns mapOf(
+            Pair(USERNAME, USERNAME),
+            Pair(PASSWORD, PASSWORD)
+        )
+
+        usecase.saveUserPrefs(USERNAME, PASSWORD)
+        val result = usecase.getLastUserLogged()
+
+        Assert.assertEquals(
+            result[USERNAME],
+            USERNAME
+        )
+
+        Assert.assertEquals(
+            result[PASSWORD],
+            PASSWORD
+        )
+    }
+
+    @Test
+    fun `getLastUserLogged - testa retornando um usuario vazio`() {
+        coEvery { prefs.getUser() } returns mapOf()
+        val result = usecase.getLastUserLogged()
+        Assert.assertEquals(
+            result,
+            emptyMap<String, String>()
+        )
+    }
+
+    @Test
+    fun `getLastUserLogged - testa ultimo usuario que logou no app`() {
+        coEvery { prefs.getUser() } returns mapOf(
+            Pair(USERNAME, USERNAME),
+            Pair(PASSWORD, PASSWORD)
+        )
+
+        val result = usecase.getLastUserLogged()
+
+        Assert.assertEquals(
+            result[USERNAME],
+            USERNAME
+        )
+
+        Assert.assertEquals(
+            result[PASSWORD],
+            PASSWORD
+        )
     }
 }

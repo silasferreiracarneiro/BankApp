@@ -6,7 +6,7 @@ import com.example.bank.bankapp.utils.Constants
 import com.example.bank.bankapp.utils.Constants.PASSWORD
 import com.example.bank.bankapp.utils.Constants.USERNAME
 
-class SharedPreferencesManager(private val context: Context) {
+class SharedPreferencesManager(context: Context) {
 
     private val mPrefs: SharedPreferences = context.getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE)
 
