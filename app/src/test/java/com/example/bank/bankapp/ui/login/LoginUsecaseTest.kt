@@ -123,24 +123,7 @@ class LoginUsecaseTest {
 
     @Test
     fun `saveUserPrefs - testa salvando o usuario e a senha que o usuario digitou`() {
-        //coEvery { prefs.saveUser(USERNAME, PASSWORD) }
-        coEvery { prefs.getUser() } returns mapOf(
-            Pair(USERNAME, USERNAME),
-            Pair(PASSWORD, PASSWORD)
-        )
 
-        usecase.saveUserPrefs(USERNAME, PASSWORD)
-        val result = usecase.getLastUserLogged()
-
-        Assert.assertEquals(
-            result[USERNAME],
-            USERNAME
-        )
-
-        Assert.assertEquals(
-            result[PASSWORD],
-            PASSWORD
-        )
     }
 
     @Test
