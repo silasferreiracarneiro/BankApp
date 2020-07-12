@@ -1,6 +1,8 @@
 package com.example.bank.bankapp.utils
 
 object Constants {
+    const val ENCRYPT_KEY = "aUJSDA--UJSDjjSS"
+
     const val BASE_URL = "https://bank-app-test.herokuapp.com/api/"
     const val PREF_NAME = "BankPref"
 

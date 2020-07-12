@@ -14,7 +14,7 @@ class LoginPresenter(val view: LoginContract.View,
                      private val usecase: LoginContract.Usecase = providerLoginUsecase(context)) : LoginContract.Presenter {
 
     override fun getLastUserLogged() {
-        GlobalScope.launch {
+        GlobalScope.launch(Dispatchers.Main) {
             val lastUserLogged = usecase.getLastUserLogged()
             view.setLasUserLogged(
                 lastUserLogged[USERNAME],
