@@ -46,7 +46,7 @@ class LoginPresenterTest {
 
     @Test
     fun `getLastUserLogged - testa retornando um usuario vazio`() {
-        coEvery { usecase.getLastUserLogged() } returns mapOf(
+        coEvery { usecase.getLastUserLogged() } returns mapOf (
             Pair(USERNAME, ""),
             Pair(PASSWORD, "")
         )
@@ -59,7 +59,7 @@ class LoginPresenterTest {
 
     @Test
     fun `getLastUserLogged - testa ultimo usuario que logou no app`() {
-        coEvery { usecase.getLastUserLogged() } returns mapOf(
+        coEvery { usecase.getLastUserLogged() } returns mapOf (
             Pair(USERNAME, USERNAME),
             Pair(PASSWORD, PASSWORD)
         )
