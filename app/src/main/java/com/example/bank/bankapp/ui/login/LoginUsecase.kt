@@ -9,13 +9,13 @@ class LoginUsecase(private val repository: LoginRepository, private val prefs: S
 
     private val passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#\$%^&+=])(?=\\S+$).{4,}\$"
 
-    override fun validaUsername(username: String?): Boolean {
+    override suspend fun validaUsername(username: String?): Boolean {
         return if (username == null || username.isBlank() || username.isEmpty())
             true
         else !(username.isValidCpf() || username.isValidEmail())
     }
 
-    override fun validaPassword(password: String?): Boolean {
+    override suspend fun validaPassword(password: String?): Boolean {
         if(password == null)
             return true
         val pattern = Pattern.compile(passwordPattern)
@@ -26,9 +26,8 @@ class LoginUsecase(private val repository: LoginRepository, private val prefs: S
     override suspend fun login(username: String, password: String)
             = repository.login(username, password)
 
-    override fun saveUserPrefs(username: String, password: String) {
+    override suspend fun saveUserPrefs(username: String, password: String): Boolean =
         prefs.saveUser(username, password)
-    }
 
-    override fun getLastUserLogged(): Map<String, String> = prefs.getUser()
+    override suspend fun getLastUserLogged(): Map<String, String> = prefs.getUser()
 }

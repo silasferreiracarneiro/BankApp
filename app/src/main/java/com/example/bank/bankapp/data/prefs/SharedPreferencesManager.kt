@@ -5,13 +5,19 @@ import android.content.SharedPreferences
 import com.example.bank.bankapp.utils.Constants
 import com.example.bank.bankapp.utils.Constants.PASSWORD
 import com.example.bank.bankapp.utils.Constants.USERNAME
+import java.lang.Exception
 
 class SharedPreferencesManager(context: Context) {
 
     private val mPrefs: SharedPreferences = context.getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE)
 
-    fun saveUser(username: String, password: String) {
-        mPrefs.edit().putString(USERNAME, username).putString(PASSWORD, password).apply()
+    fun saveUser(username: String, password: String): Boolean {
+        return try {
+            mPrefs.edit().putString(USERNAME, username).putString(PASSWORD, password).apply()
+            true
+        } catch (e: Exception) {
+            false
+        }
     }
 
     fun getUser() : Map<String, String> {

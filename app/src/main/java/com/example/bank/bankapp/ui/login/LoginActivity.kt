@@ -31,7 +31,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     }
 
     private fun initPresenter() {
-        presenter = LoginPresenter(this, this)
+        presenter = LoginPresenter( this, this)
     }
 
     private fun bindProperties() {
@@ -75,5 +75,9 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     override fun setLasUserLogged(username: String?, password: String?) {
         edtUsername.setText(username)
         edtPassword.setText(password)
+    }
+
+    override fun errorSaveAccountPrefs() {
+        Snackbar.make(coordinatorLayout, getString(R.string.error_salve_user_prefs), Snackbar.LENGTH_LONG).show()
     }
 }

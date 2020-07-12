@@ -3,40 +3,40 @@ package com.example.bank.bankapp.ui.login
 import android.content.Context
 import com.example.bank.bankapp.data.api.config.ResultApi
 import com.example.bank.bankapp.data.api.response.UserAccountResponse
+import com.example.bank.bankapp.model.UserAccount
 import com.example.bank.bankapp.provider.providerLoginUsecase
 import com.example.bank.bankapp.utils.Constants.PASSWORD
 import com.example.bank.bankapp.utils.Constants.USERNAME
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
-class LoginPresenter(private val view: LoginContract.View,
+class LoginPresenter(val view: LoginContract.View,
                      private val context: Context,
                      private val usecase: LoginContract.Usecase = providerLoginUsecase(context)) : LoginContract.Presenter {
 
     override fun getLastUserLogged() {
-        val lastUserLogged = usecase.getLastUserLogged()
-         afterSearch(
-             lastUserLogged
-         )
-    }
-
-    private fun afterSearch(lastUserLogged: Map<String, String>) {
-        view.setLasUserLogged(
-            lastUserLogged[USERNAME],
-            lastUserLogged[PASSWORD]
-        )
+        GlobalScope.launch {
+            val lastUserLogged = usecase.getLastUserLogged()
+            view.setLasUserLogged(
+                lastUserLogged[USERNAME],
+                lastUserLogged[PASSWORD]
+            )
+        }
     }
 
     override fun login(username: String?, password: String?) {
-        val usernameResult =  usecase.validaUsername(username)
-        val passwordResult = usecase.validaPassword(password)
+        GlobalScope.launch {
+            coroutineScope {
+                val usernameResult =  async { usecase.validaUsername(username) }
+                val passwordResult = async { usecase.validaPassword(password) }
 
-        afterValidation(
-            usernameResult,
-            passwordResult,
-            username,
-            password
-        )
+                afterValidation(
+                    usernameResult.await(),
+                    passwordResult.await(),
+                    username,
+                    password
+                )
+            }
+        }
     }
 
     private fun afterValidation(usernameResult: Boolean,
@@ -87,7 +87,16 @@ class LoginPresenter(private val view: LoginContract.View,
     }
 
     private fun sucessCallApi(value: UserAccountResponse?, username: String, password: String) {
-        usecase.saveUserPrefs(username, password)
-        view.sucessCallApi(value?.parseUserAccountResponseToUserAccount())
+        GlobalScope.launch {
+            when (usecase.saveUserPrefs(username, password)) {
+                true -> view.sucessCallApi(value?.parseUserAccountResponseToUserAccount())
+                false -> erroSalveUsePrefs(value?.parseUserAccountResponseToUserAccount())
+            }
+        }
+    }
+
+    private fun erroSalveUsePrefs(account: UserAccount?) {
+        view.sucessCallApi(account)
+        view.errorSaveAccountPrefs()
     }
 }

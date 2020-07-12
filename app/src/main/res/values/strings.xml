@@ -10,4 +10,5 @@
     <string name="saldo">Saldo</string>
     <string name="conta">Conta</string>
     <string name="recentes">Recentes</string>
+    <string name="error_salve_user_prefs">Opsss, algo deu errado, não conseguimos salvar seu ultimo login =/… \n mas fique tranquilo no proximo login iremos salvar =D</string>
 </resources>

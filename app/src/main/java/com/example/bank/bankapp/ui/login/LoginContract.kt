@@ -7,11 +7,11 @@ import com.example.bank.bankapp.model.UserAccount
 interface LoginContract {
 
     interface Usecase {
-        fun validaUsername(username: String?): Boolean
-        fun validaPassword(password: String?): Boolean
+        suspend fun validaUsername(username: String?): Boolean
+        suspend fun validaPassword(password: String?): Boolean
         suspend fun login(username: String, password: String): ResultApi<UserAccountResponse>
-        fun saveUserPrefs(username: String, password: String)
-        fun getLastUserLogged() : Map<String, String>
+        suspend fun saveUserPrefs(username: String, password: String): Boolean
+        suspend fun getLastUserLogged() : Map<String, String>
     }
 
     interface Presenter{
@@ -19,12 +19,13 @@ interface LoginContract {
         fun getLastUserLogged()
     }
 
-    interface View{
+    interface View {
         fun invalidFields()
         fun passwordInvalido()
         fun usernameInvalido()
         fun errorLogin(message: String?)
         fun sucessCallApi(user: UserAccount?)
         fun setLasUserLogged(username: String?, password: String?)
+        fun errorSaveAccountPrefs()
     }
 }
