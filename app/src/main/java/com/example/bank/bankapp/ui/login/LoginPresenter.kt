@@ -24,7 +24,7 @@ class LoginPresenter(val view: LoginContract.View,
     }
 
     override fun login(username: String?, password: String?) {
-        GlobalScope.launch {
+        GlobalScope.launch(Dispatchers.Main) {
             coroutineScope {
                 val usernameResult =  async { usecase.validaUsername(username) }
                 val passwordResult = async { usecase.validaPassword(password) }

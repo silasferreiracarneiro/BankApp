@@ -3,7 +3,9 @@ package com.example.bank.bankapp.ui.paymentList
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageButton
+import android.widget.ProgressBar
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +30,7 @@ class PaymentListActivity : AppCompatActivity(), PaymentListContract.View {
 
     lateinit var presenter: PaymentListContract.Presenter
 
+    private lateinit var progressBar:ProgressBar
     private lateinit var coordinatorLayout: ScrollView
     private lateinit var recycler: RecyclerView
     private lateinit var logout: ImageButton
@@ -56,6 +59,7 @@ class PaymentListActivity : AppCompatActivity(), PaymentListContract.View {
     }
 
     private fun bindProperties() {
+        this.progressBar = findViewById(R.id.progressBar)
         this.coordinatorLayout = findViewById(R.id.coordinator_layout)
         this.recycler = findViewById(R.id.recycler_view)
         this.logout = findViewById(R.id.logout)
@@ -83,6 +87,8 @@ class PaymentListActivity : AppCompatActivity(), PaymentListContract.View {
     override fun sucessCallApi(payments: List<Payment>?) {
         payments?.let {
             configureAdapter(it)
+            this.progressBar.visibility = View.GONE
+            this.recycler.visibility = View.VISIBLE
         }
     }
 

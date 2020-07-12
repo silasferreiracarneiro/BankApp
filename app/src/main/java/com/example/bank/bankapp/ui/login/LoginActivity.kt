@@ -1,22 +1,21 @@
 package com.example.bank.bankapp.ui.login
 
 import android.os.Bundle
-import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import br.com.simplepass.loadingbutton.customViews.CircularProgressButton
 import com.example.bank.bankapp.R
 import com.example.bank.bankapp.model.UserAccount
 import com.example.bank.bankapp.ui.paymentList.PaymentListActivity.Companion.newInstance
 import com.google.android.material.snackbar.Snackbar
-
 
 class LoginActivity : AppCompatActivity(), LoginContract.View {
 
     private lateinit var presenter : LoginPresenter
 
     private lateinit var coordinatorLayout: ConstraintLayout
-    private lateinit var btnLogin: Button
+    private lateinit var btnLogin: CircularProgressButton
     private lateinit var edtUsername: EditText
     private lateinit var edtPassword: EditText
 
@@ -46,6 +45,7 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     }
 
     private fun login() {
+        btnLogin.startAnimation()
         val username = edtUsername.text?.toString()
         val password = edtPassword.text?.toString()
         presenter.login(username, password)
@@ -57,14 +57,17 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     }
 
     override fun passwordInvalido() {
+        this.btnLogin.revertAnimation()
         edtPassword.error = getString(R.string.password_error)
     }
 
     override fun usernameInvalido() {
+        this.btnLogin.revertAnimation()
         edtUsername.error = getString(R.string.username_error)
     }
 
     override fun errorLogin(message: String?) {
+        this.btnLogin.revertAnimation()
         Snackbar.make(coordinatorLayout, message ?: getString(R.string.error_default), Snackbar.LENGTH_LONG).show()
     }
 
@@ -78,6 +81,12 @@ class LoginActivity : AppCompatActivity(), LoginContract.View {
     }
 
     override fun errorSaveAccountPrefs() {
+        this.btnLogin.revertAnimation()
         Snackbar.make(coordinatorLayout, getString(R.string.error_salve_user_prefs), Snackbar.LENGTH_LONG).show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        this.btnLogin.revertAnimation()
     }
 }
